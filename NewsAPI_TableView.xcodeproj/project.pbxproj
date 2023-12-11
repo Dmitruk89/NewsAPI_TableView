@@ -13,6 +13,10 @@
 		04076FAD2B230B1100A6B583 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04076FAB2B230B1100A6B583 /* Main.storyboard */; };
 		04076FAF2B230B1500A6B583 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04076FAE2B230B1500A6B583 /* Assets.xcassets */; };
 		04076FB22B230B1500A6B583 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04076FB02B230B1500A6B583 /* LaunchScreen.storyboard */; };
+		04076FBA2B230C5F00A6B583 /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FB92B230C5F00A6B583 /* NewsListViewController.swift */; };
+		04076FBD2B23135D00A6B583 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FBC2B23135D00A6B583 /* News.swift */; };
+		04076FC02B231CBD00A6B583 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FBF2B231CBD00A6B583 /* NewsService.swift */; };
+		04076FC22B23622900A6B583 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FC12B23622900A6B583 /* NewsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		04076FAE2B230B1500A6B583 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04076FB12B230B1500A6B583 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04076FB32B230B1500A6B583 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04076FB92B230C5F00A6B583 /* NewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
+		04076FBC2B23135D00A6B583 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		04076FBF2B231CBD00A6B583 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		04076FC12B23622900A6B583 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +64,12 @@
 		04076FA42B230B1000A6B583 /* NewsAPI_TableView */ = {
 			isa = PBXGroup;
 			children = (
+				04076FBE2B231CA700A6B583 /* API */,
+				04076FBB2B23132300A6B583 /* Models */,
 				04076FA52B230B1000A6B583 /* AppDelegate.swift */,
 				04076FA72B230B1000A6B583 /* SceneDelegate.swift */,
+				04076FB92B230C5F00A6B583 /* NewsListViewController.swift */,
+				04076FC12B23622900A6B583 /* NewsTableViewCell.swift */,
 				04076FA92B230B1000A6B583 /* ViewController.swift */,
 				04076FAB2B230B1100A6B583 /* Main.storyboard */,
 				04076FAE2B230B1500A6B583 /* Assets.xcassets */,
@@ -65,6 +77,22 @@
 				04076FB32B230B1500A6B583 /* Info.plist */,
 			);
 			path = NewsAPI_TableView;
+			sourceTree = "<group>";
+		};
+		04076FBB2B23132300A6B583 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				04076FBC2B23135D00A6B583 /* News.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		04076FBE2B231CA700A6B583 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				04076FBF2B231CBD00A6B583 /* NewsService.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +165,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04076FC02B231CBD00A6B583 /* NewsService.swift in Sources */,
+				04076FC22B23622900A6B583 /* NewsTableViewCell.swift in Sources */,
 				04076FAA2B230B1000A6B583 /* ViewController.swift in Sources */,
 				04076FA62B230B1000A6B583 /* AppDelegate.swift in Sources */,
 				04076FA82B230B1000A6B583 /* SceneDelegate.swift in Sources */,
+				04076FBD2B23135D00A6B583 /* News.swift in Sources */,
+				04076FBA2B230C5F00A6B583 /* NewsListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
