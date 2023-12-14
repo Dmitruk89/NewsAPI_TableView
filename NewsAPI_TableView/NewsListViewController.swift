@@ -66,7 +66,6 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.configure(with: viewModels[indexPath.row])
-        
         return cell
     }
     
@@ -78,7 +77,7 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        let vc = SFSafariViewController(url: url)
+        let vc = NewsDetailViewController(newsUrl: url)
         present(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

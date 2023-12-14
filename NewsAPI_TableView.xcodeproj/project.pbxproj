@@ -16,6 +16,7 @@
 		04076FBD2B23135D00A6B583 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FBC2B23135D00A6B583 /* News.swift */; };
 		04076FC02B231CBD00A6B583 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FBF2B231CBD00A6B583 /* NewsService.swift */; };
 		04076FC22B23622900A6B583 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FC12B23622900A6B583 /* NewsTableViewCell.swift */; };
+		041DC1712B2B50B30040DF4A /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041DC1702B2B50B30040DF4A /* NewsDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		04076FBC2B23135D00A6B583 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		04076FBF2B231CBD00A6B583 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		04076FC12B23622900A6B583 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		041DC1702B2B50B30040DF4A /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				04076FA52B230B1000A6B583 /* AppDelegate.swift */,
 				04076FA72B230B1000A6B583 /* SceneDelegate.swift */,
 				04076FB92B230C5F00A6B583 /* NewsListViewController.swift */,
+				041DC1702B2B50B30040DF4A /* NewsDetailViewController.swift */,
 				04076FC12B23622900A6B583 /* NewsTableViewCell.swift */,
 				04076FAB2B230B1100A6B583 /* Main.storyboard */,
 				04076FAE2B230B1500A6B583 /* Assets.xcassets */,
@@ -165,6 +168,7 @@
 				04076FC02B231CBD00A6B583 /* NewsService.swift in Sources */,
 				04076FC22B23622900A6B583 /* NewsTableViewCell.swift in Sources */,
 				04076FA62B230B1000A6B583 /* AppDelegate.swift in Sources */,
+				041DC1712B2B50B30040DF4A /* NewsDetailViewController.swift in Sources */,
 				04076FA82B230B1000A6B583 /* SceneDelegate.swift in Sources */,
 				04076FBD2B23135D00A6B583 /* News.swift in Sources */,
 				04076FBA2B230C5F00A6B583 /* NewsListViewController.swift in Sources */,
