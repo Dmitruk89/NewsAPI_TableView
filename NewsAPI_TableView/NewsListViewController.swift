@@ -18,7 +18,9 @@ class NewsListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "News app"
+        
+        title = NewsListVCConstants.title
+        
         setupUI()
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         
@@ -29,8 +31,8 @@ class NewsListViewController: UIViewController {
                     self?.articles = newsResponse.articles
                     self?.viewModels = newsResponse.articles.compactMap({
                         NewsTableViewCellViewModel(
-                            title: $0.title ?? "no title",
-                            description: $0.description ?? "no description",
+                            title: $0.title ?? NewsListVCConstants.noTitle,
+                            description: $0.description ?? NewsListVCConstants.noDescription,
                             imageUrl: URL(string: $0.urlToImage ?? "")
                         )
                     })
@@ -38,7 +40,7 @@ class NewsListViewController: UIViewController {
                         self?.tableView.reloadData()
                     }
                 } else {
-                    print("something went wrong")
+                    print(NewsListVCConstants.defaultError)
                 }
             }
         }
@@ -82,5 +84,14 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+}
+
+private extension NewsListViewController {
+    enum NewsListVCConstants {
+        static let title = "News app"
+        static let noTitle = "no title"
+        static let noDescription = "no description"
+        static let defaultError = "something went wrong"
     }
 }

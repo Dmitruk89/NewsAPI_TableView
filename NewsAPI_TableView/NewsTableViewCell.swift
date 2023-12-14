@@ -26,7 +26,7 @@ class NewsTableViewCellViewModel {
 
 class NewsTableViewCell: UITableViewCell {
 
-    static let identifier = "NewsTableViewCell"
+    static let identifier = NewsCellConstant.identifier
     
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
@@ -112,5 +112,11 @@ class NewsTableViewCell: UITableViewCell {
                 }
             }.resume()
         }
+    }
+}
+
+private extension NewsTableViewCell {
+    enum NewsCellConstant {
+        static let identifier = "NewsTableViewCell"
     }
 }
