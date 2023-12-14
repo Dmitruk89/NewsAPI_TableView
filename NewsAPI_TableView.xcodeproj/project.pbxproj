@@ -17,6 +17,7 @@
 		04076FC02B231CBD00A6B583 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FBF2B231CBD00A6B583 /* NewsService.swift */; };
 		04076FC22B23622900A6B583 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04076FC12B23622900A6B583 /* NewsTableViewCell.swift */; };
 		041DC1712B2B50B30040DF4A /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041DC1702B2B50B30040DF4A /* NewsDetailViewController.swift */; };
+		041DC1742B2B55F60040DF4A /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041DC1732B2B55F60040DF4A /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		04076FBF2B231CBD00A6B583 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		04076FC12B23622900A6B583 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		041DC1702B2B50B30040DF4A /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
+		041DC1732B2B55F60040DF4A /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		04076FA42B230B1000A6B583 /* NewsAPI_TableView */ = {
 			isa = PBXGroup;
 			children = (
+				041DC1722B2B55BE0040DF4A /* utils */,
 				04076FBE2B231CA700A6B583 /* API */,
 				04076FBB2B23132300A6B583 /* Models */,
 				04076FA52B230B1000A6B583 /* AppDelegate.swift */,
@@ -93,6 +96,14 @@
 				04076FBF2B231CBD00A6B583 /* NewsService.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		041DC1722B2B55BE0040DF4A /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				041DC1732B2B55F60040DF4A /* ImageLoader.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +182,7 @@
 				041DC1712B2B50B30040DF4A /* NewsDetailViewController.swift in Sources */,
 				04076FA82B230B1000A6B583 /* SceneDelegate.swift in Sources */,
 				04076FBD2B23135D00A6B583 /* News.swift in Sources */,
+				041DC1742B2B55F60040DF4A /* ImageLoader.swift in Sources */,
 				04076FBA2B230C5F00A6B583 /* NewsListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -103,18 +103,10 @@ class NewsTableViewCell: UITableViewCell {
         newsTitleLabel.text = viewModel.title
         newsDescriptionLabel.text = viewModel.description
         
-        if let data = viewModel.imageData {
-            newsImageView.image = UIImage(data: data)
-        } else if let url = viewModel.imageUrl {
-            URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-                guard let data = data, error == nil else {
-                    return
-                }
-                viewModel.imageData = data
-                DispatchQueue.main.async {
-                    self?.newsImageView.image = UIImage(data: data)
-                }
-            }.resume()
+        ImageLoader.shared.loadImage(from: viewModel.imageUrl) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.newsImageView.image = image
+            }
         }
     }
 }
