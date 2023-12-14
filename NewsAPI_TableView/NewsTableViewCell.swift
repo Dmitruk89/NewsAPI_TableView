@@ -66,26 +66,30 @@ class NewsTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        newsTitleLabel.frame = CGRect(
-            x: 10,
-            y: 0,
-            width: contentView.frame.size.width - 170,
-            height: 70
-        )
+        let inset: CGFloat = 10
+        let imageWidth: CGFloat = 140
+        let titleHeight: CGFloat = 70
         
-        newsDescriptionLabel.frame = CGRect(
-            x: 10,
-            y: 70,
-            width: contentView.frame.size.width - 170,
-            height: contentView.frame.size.height/2
-        )
+        newsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        newsDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        newsImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        newsImageView.frame = CGRect(
-            x: contentView.frame.size.width - 160,
-            y: 5,
-            width: 140,
-            height: contentView.frame.size.height - 10
-        )
+        NSLayoutConstraint.activate([
+            newsTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            newsTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: inset),
+            newsTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -imageWidth - inset * 3),
+            newsTitleLabel.heightAnchor.constraint(equalToConstant: titleHeight),
+            
+            newsDescriptionLabel.topAnchor.constraint(equalTo: newsTitleLabel.bottomAnchor),
+            newsDescriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: inset),
+            newsDescriptionLabel.rightAnchor.constraint(equalTo: newsTitleLabel.rightAnchor),
+            newsDescriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            
+            newsImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -inset),
+            newsImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            newsImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            newsImageView.widthAnchor.constraint(equalToConstant: imageWidth),
+        ])
     }
     
     override func prepareForReuse() {

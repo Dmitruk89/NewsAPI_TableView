@@ -10,6 +10,7 @@ import Foundation
 class NewsService {
     let apiKey: String = "5bb470c44d244ea68261255a8222a824"
     let apiUrl: String = "https://newsapi.org/v2/everything?q=apple&sortBy=publishedAt&apiKey="
+    
     func fetchNews(completion: @escaping (NewsResponse?) -> Void){
         guard let url = URL(string: "\(apiUrl)\(apiKey)") else {
             completion(nil)

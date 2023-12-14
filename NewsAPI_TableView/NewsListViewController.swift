@@ -48,7 +48,6 @@ class NewsListViewController: UIViewController {
     
     private func setupUI(){
         tableView.frame = view.bounds
-        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
