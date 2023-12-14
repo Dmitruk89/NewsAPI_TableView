@@ -8,13 +8,10 @@
 import UIKit
 import SafariServices
 
-class NewsListViewController: UIViewController {
-    
+class NewsListViewController: UIViewController{
+   
     private let tableView = UITableView()
-    private let newsService = NewsService()
-    
-    private var articles: [Article] = []
-    private var viewModels = [NewsTableViewCellViewModel]()
+    var viewModel: NewsListViewModel = NewsListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,34 +19,19 @@ class NewsListViewController: UIViewController {
         title = NewsListVCConstants.title
         
         setupUI()
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
-        
-        newsService.fetchNews { [weak self] newsResponse in
-            DispatchQueue.main.async {
-                if let newsResponse = newsResponse {
-                    print(newsResponse.articles)
-                    self?.articles = newsResponse.articles
-                    self?.viewModels = newsResponse.articles.compactMap({
-                        NewsTableViewCellViewModel(
-                            title: $0.title ?? NewsListVCConstants.noTitle,
-                            description: $0.description ?? NewsListVCConstants.noDescription,
-                            imageUrl: URL(string: $0.urlToImage ?? "")
-                        )
-                    })
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                    }
-                } else {
-                    print(NewsListVCConstants.defaultError)
-                }
-            }
-        }
+        setupViewModel()
+        viewModel.fetchNews()
+    }
+    
+    private func setupViewModel() {
+        viewModel.delegate = self
     }
     
     private func setupUI(){
         tableView.frame = view.bounds
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         view.addSubview(tableView)
     }
 
@@ -57,7 +39,7 @@ class NewsListViewController: UIViewController {
 
 extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModels.count
+        return viewModel.viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,15 +47,15 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
         }
         
-        cell.configure(with: viewModels[indexPath.row])
+        cell.configure(with: viewModel.viewModels[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let article = articles[indexPath.row]
+        let article = viewModel.viewModels[indexPath.row]
         
-        guard let url = URL(string: article.url ?? "") else {
+        guard let url = article.newsUrl else {
             return
         }
         
@@ -88,8 +70,11 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
 private extension NewsListViewController {
     enum NewsListVCConstants {
         static let title = "News app"
-        static let noTitle = "no title"
-        static let noDescription = "no description"
-        static let defaultError = "something went wrong"
+    }
+}
+
+extension NewsListViewController: NewsListViewModelDelegate {
+    func viewModelDidUpdateData() {
+        tableView.reloadData()
     }
 }

@@ -7,23 +7,6 @@
 
 import UIKit
 
-class NewsTableViewCellViewModel {
-    let title: String
-    let description: String
-    let imageUrl: URL?
-    var imageData: Data? = nil
-    
-    init(
-        title: String,
-        description: String,
-        imageUrl: URL?
-    ) {
-        self.title = title
-        self.description = description
-        self.imageUrl = imageUrl
-    }
-}
-
 class NewsTableViewCell: UITableViewCell {
 
     static let identifier = NewsCellConstant.identifier
