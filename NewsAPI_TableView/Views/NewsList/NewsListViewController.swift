@@ -12,16 +12,14 @@ class NewsListViewController: UIViewController{
    
     private let tableView = UITableView()
     var viewModel: NewsListViewModel = NewsListViewModel()
-    //var coordinator: MainCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = NewsListVCConstants.title
+        title = Constant.title
         
         setupUI()
         setupViewModel()
-        viewModel.fetchNews()
     }
     
     private func setupViewModel() {
@@ -61,8 +59,6 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
         }
         viewModel.coordinator?.goToNewsDetailPage(newsUrl: url)
         
-        //let vc = NewsDetailViewController(newsUrl: url)
-        //present(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
@@ -70,7 +66,7 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 private extension NewsListViewController {
-    enum NewsListVCConstants {
+    enum Constant {
         static let title = "News app"
     }
 }

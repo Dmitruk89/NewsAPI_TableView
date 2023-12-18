@@ -23,8 +23,8 @@ final class NewsListViewModel {
         didSet {
             viewModels = articles.map{
                 NewsTableViewCellViewModel(
-                    title: $0.title ?? NewsListVMConstants.noTitle,
-                    description: $0.description ?? NewsListVMConstants.noDescription,
+                    title: $0.title ?? Constant.noTitle,
+                    description: $0.description ?? Constant.noDescription,
                     imageUrl: URL(string: $0.urlToImage ?? ""),
                     newsUrl: URL(string: $0.url ?? "")
                 )
@@ -35,13 +35,17 @@ final class NewsListViewModel {
     
     var viewModels = [NewsTableViewCellViewModel]()
     
+    init() {
+        fetchNews()
+    }
+    
     func fetchNews(){
         newsService.fetchNews { [weak self] newsResponse in
             DispatchQueue.main.async {
                 if let newsResponse = newsResponse {
                     self?.articles = newsResponse.articles
                 } else {
-                    print(NewsListVMConstants.defaultError)
+                    print(Constant.defaultError)
                 }
             }
         }
@@ -69,7 +73,7 @@ class NewsTableViewCellViewModel {
 }
 
 private extension NewsListViewModel {
-    enum NewsListVMConstants {
+    enum Constant {
         static let noTitle = "no title"
         static let noDescription = "no description"
         static let defaultError = "something went wrong"
