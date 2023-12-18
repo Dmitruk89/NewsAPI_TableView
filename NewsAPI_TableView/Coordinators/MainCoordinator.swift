@@ -43,7 +43,9 @@ class MainCoordinator: Coordinator {
         }
     
     func goToNewsDetailPage(newsUrl: URL){
+            print("go to detail page!! \(newsUrl)")
             let vc = storyboard.instantiateViewController(withIdentifier: "NewsDetailViewController") as! NewsDetailViewController
+            
             let vm = NewsDetailViewModel.init(newsUrl: newsUrl)
             vm.coordinator = self
             vc.viewModel = vm

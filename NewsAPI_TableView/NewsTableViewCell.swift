@@ -11,7 +11,8 @@ class NewsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(containerView)
+        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        //addGestureRecognizer(tapGesture)
         contentView.addSubview(newsTitleLabel)
         contentView.addSubview(newsDescriptionLabel)
         contentView.addSubview(newsImageView)
@@ -24,11 +25,11 @@ class NewsTableViewCell: UITableViewCell {
     
     static let identifier = Constant.identifier
     
-    private let containerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    
+    
+//    @objc func cellTapped() {
+//        print("Cell tapped!")
+//    }
     
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
@@ -62,26 +63,23 @@ class NewsTableViewCell: UITableViewCell {
             var constraints = [NSLayoutConstraint]()
             
             constraints.append(contentsOf: [
-                containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
                 
-                newsTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+                newsTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
                 newsTitleLabel.heightAnchor.constraint(equalToConstant: Constant.titleHeight),
-                newsTitleLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: Constant.inset),
-                newsTitleLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, constant: -Constant.imageWidth - Constant.inset * 3),
+                newsTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constant.inset),
+                newsTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -Constant.imageWidth - Constant.inset * 3),
             
                 newsDescriptionLabel.topAnchor.constraint(equalTo: newsTitleLabel.bottomAnchor),
-                newsDescriptionLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: Constant.inset),
+                newsDescriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constant.inset),
                 newsDescriptionLabel.rightAnchor.constraint(equalTo: newsTitleLabel.rightAnchor),
-                newsDescriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Constant.inset),
+                newsDescriptionLabel.bottomAnchor.constraint(equalTo: newsImageView.bottomAnchor),
                 
-                newsImageView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -Constant.inset),
-                newsImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Constant.inset),
-                newsImageView.heightAnchor.constraint(equalToConstant: Constant.imageHeight),
-                newsImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Constant.inset),
+                newsImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constant.inset),
+                newsImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.inset),
+                //newsImageView.heightAnchor.constraint(equalToConstant: Constant.imageHeight),
+                
                 newsImageView.widthAnchor.constraint(equalToConstant: Constant.imageWidth),
+                newsImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.inset),
                 
             ])
             

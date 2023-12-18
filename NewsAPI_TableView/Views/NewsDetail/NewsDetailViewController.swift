@@ -10,17 +10,35 @@ import WebKit
 
 class NewsDetailViewController: UIViewController {
     
-    var webView: WKWebView!
+    private lazy var webView: WKWebView = {
+            let webView = WKWebView(frame: .zero)
+            webView.translatesAutoresizingMaskIntoConstraints = false
+            return webView
+        }()
     var viewModel: NewsDetailViewModel!
-    
-    override func loadView() {
-        webView = WKWebView()
-        view = webView
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        NSLayoutConstraint.activate(staticConstraints())
         webView.load(URLRequest(url: viewModel.newsUrl))
+    }
+    
+    private func staticConstraints() -> [NSLayoutConstraint] {
+        var constraints = [NSLayoutConstraint]()
+            
+        constraints.append(contentsOf: [
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
+        return constraints
+    }
+    
+    private func setupUI(){
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(webView)
     }
 
 }
