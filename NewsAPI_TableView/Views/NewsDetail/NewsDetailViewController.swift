@@ -11,7 +11,7 @@ import WebKit
 class NewsDetailViewController: UIViewController {
     
     var webView: WKWebView!
-    var newsUrl: URL
+    var viewModel: NewsDetailViewModel!
     
     override func loadView() {
         webView = WKWebView()
@@ -20,19 +20,7 @@ class NewsDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print("news url \(newsUrl)")
-        webView.load(URLRequest(url: self.newsUrl))
+        webView.load(URLRequest(url: viewModel.newsUrl))
     }
-    
-    init(newsUrl: URL) {
-        self.newsUrl = newsUrl
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
 
 }

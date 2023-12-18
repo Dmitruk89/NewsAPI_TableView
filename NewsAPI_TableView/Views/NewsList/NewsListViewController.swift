@@ -12,6 +12,7 @@ class NewsListViewController: UIViewController{
    
     private let tableView = UITableView()
     var viewModel: NewsListViewModel = NewsListViewModel()
+    //var coordinator: MainCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +59,10 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
         guard let url = article.newsUrl else {
             return
         }
+        viewModel.coordinator?.goToNewsDetailPage(newsUrl: url)
         
-        let vc = NewsDetailViewController(newsUrl: url)
-        present(vc, animated: true)
+        //let vc = NewsDetailViewController(newsUrl: url)
+        //present(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150

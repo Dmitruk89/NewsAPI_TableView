@@ -13,9 +13,10 @@ protocol NewsListViewModelDelegate: AnyObject {
     func viewModelDidUpdateData()
 }
 
-final class NewsListViewModel: ObservableObject {
+final class NewsListViewModel {
     
     weak var delegate: NewsListViewModelDelegate?
+    var coordinator: MainCoordinator?
     
     private let newsService = NewsService()
     private var articles: [Article] = [] {

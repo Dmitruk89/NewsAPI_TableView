@@ -30,7 +30,7 @@ class NewsTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = 6
         imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .secondarySystemBackground
+        imageView.backgroundColor = .systemGray
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
