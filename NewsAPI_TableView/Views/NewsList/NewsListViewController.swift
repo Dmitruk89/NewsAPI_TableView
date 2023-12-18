@@ -9,9 +9,19 @@ import UIKit
 import SafariServices
 
 class NewsListViewController: UIViewController{
-   
-    private let tableView = UITableView()
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        tableView.rowHeight = UITableView.automaticDimension
+
+        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        return tableView
+    }()
+    
     var viewModel: NewsListViewModel = NewsListViewModel()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +30,7 @@ class NewsListViewController: UIViewController{
         
         setupUI()
         setupViewModel()
+        NSLayoutConstraint.activate(staticConstraints())
     }
     
     private func setupViewModel() {
@@ -27,11 +38,23 @@ class NewsListViewController: UIViewController{
     }
     
     private func setupUI(){
-        tableView.frame = view.bounds
-        tableView.delegate = self
+        //tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        
         view.addSubview(tableView)
+        
+    }
+    
+    private func staticConstraints() -> [NSLayoutConstraint] {
+            var constraints = [NSLayoutConstraint]()
+            
+            constraints.append(contentsOf: [
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                tableView.topAnchor.constraint(equalTo: view.topAnchor)
+            ])
+            return constraints
     }
 
 }
@@ -60,9 +83,9 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
         viewModel.coordinator?.goToNewsDetailPage(newsUrl: url)
         
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 150
+//    }
 }
 
 private extension NewsListViewController {

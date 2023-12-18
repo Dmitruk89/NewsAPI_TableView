@@ -8,13 +8,33 @@
 import UIKit
 
 class NewsTableViewCell: UITableViewCell {
-
-    static let identifier = NewsCellConstant.identifier
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(containerView)
+        contentView.addSubview(newsTitleLabel)
+        contentView.addSubview(newsDescriptionLabel)
+        contentView.addSubview(newsImageView)
+        NSLayoutConstraint.activate(staticConstraints())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    static let identifier = Constant.identifier
+    
+    private let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = .monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
+        label.font = .monospacedDigitSystemFont(ofSize: 20, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -22,6 +42,7 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = .monospacedDigitSystemFont(ofSize: 17, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -32,48 +53,40 @@ class NewsTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.backgroundColor = .systemGray
         imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(newsTitleLabel)
-        contentView.addSubview(newsDescriptionLabel)
-        contentView.addSubview(newsImageView)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func staticConstraints() -> [NSLayoutConstraint] {
         
-        let inset: CGFloat = 10
-        let imageWidth: CGFloat = 140
-        let titleHeight: CGFloat = 70
-        
-        newsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        newsDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        newsImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            newsTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            newsTitleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: inset),
-            newsTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -imageWidth - inset * 3),
-            newsTitleLabel.heightAnchor.constraint(equalToConstant: titleHeight),
+            var constraints = [NSLayoutConstraint]()
             
-            newsDescriptionLabel.topAnchor.constraint(equalTo: newsTitleLabel.bottomAnchor),
-            newsDescriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: inset),
-            newsDescriptionLabel.rightAnchor.constraint(equalTo: newsTitleLabel.rightAnchor),
-            newsDescriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            constraints.append(contentsOf: [
+                containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                
+                newsTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+                newsTitleLabel.heightAnchor.constraint(equalToConstant: Constant.titleHeight),
+                newsTitleLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: Constant.inset),
+                newsTitleLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, constant: -Constant.imageWidth - Constant.inset * 3),
             
-            newsImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -inset),
-            newsImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
-            newsImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
-            newsImageView.widthAnchor.constraint(equalToConstant: imageWidth),
-        ])
-    }
+                newsDescriptionLabel.topAnchor.constraint(equalTo: newsTitleLabel.bottomAnchor),
+                newsDescriptionLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: Constant.inset),
+                newsDescriptionLabel.rightAnchor.constraint(equalTo: newsTitleLabel.rightAnchor),
+                newsDescriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Constant.inset),
+                
+                newsImageView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -Constant.inset),
+                newsImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Constant.inset),
+                newsImageView.heightAnchor.constraint(equalToConstant: Constant.imageHeight),
+                newsImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Constant.inset),
+                newsImageView.widthAnchor.constraint(equalToConstant: Constant.imageWidth),
+                
+            ])
+            
+            return constraints
+        }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -95,7 +108,11 @@ class NewsTableViewCell: UITableViewCell {
 }
 
 private extension NewsTableViewCell {
-    enum NewsCellConstant {
+    enum Constant {
         static let identifier = "NewsTableViewCell"
+        static let inset: CGFloat = 10
+        static let imageWidth: CGFloat = 140
+        static let imageHeight: CGFloat = Constant.imageWidth
+        static let titleHeight: CGFloat = 50
     }
 }
