@@ -27,28 +27,24 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        print("App Coordinator Start")
         goToNewsListPage()
     }
     
     let storyboard = UIStoryboard.init(name: "Main", bundle: .main)
     
     func goToNewsListPage(){
-        print("load news list")
-            let vc = storyboard.instantiateViewController(withIdentifier: "NewsListViewController") as! NewsListViewController
-            let vm = NewsListViewModel.init()
-            vm.coordinator = self
-            vc.viewModel = vm
-            navigationController.pushViewController(vc, animated: true)
+        let vc = storyboard.instantiateViewController(withIdentifier: "NewsListViewController") as!NewsListViewController
+        let vm = NewsListViewModel.init()
+        vm.coordinator = self
+        vc.viewModel = vm
+        navigationController.pushViewController(vc, animated: true)
         }
     
-    func goToNewsDetailPage(newsUrl: URL){
-            print("go to detail page!! \(newsUrl)")
-            let vc = storyboard.instantiateViewController(withIdentifier: "NewsDetailViewController") as! NewsDetailViewController
-            
-            let vm = NewsDetailViewModel.init(newsUrl: newsUrl)
-            vm.coordinator = self
-            vc.viewModel = vm
-            navigationController.pushViewController(vc, animated: true)
+    func goToNewsDetailPage(newsUrl: URL?){
+        let vc = storyboard.instantiateViewController(withIdentifier: "NewsDetailViewController") as!NewsDetailViewController
+        let vm = NewsDetailViewModel.init(newsUrl: newsUrl)
+        vm?.coordinator = self
+        vc.viewModel = vm
+        navigationController.pushViewController(vc, animated: true)
         }
 }

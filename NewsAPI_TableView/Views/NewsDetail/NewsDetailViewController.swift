@@ -11,17 +11,20 @@ import WebKit
 class NewsDetailViewController: UIViewController {
     
     private lazy var webView: WKWebView = {
-            let webView = WKWebView(frame: .zero)
-            webView.translatesAutoresizingMaskIntoConstraints = false
-            return webView
-        }()
+        let webView = WKWebView(frame: .zero)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        return webView
+    }()
     var viewModel: NewsDetailViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         NSLayoutConstraint.activate(staticConstraints())
-        webView.load(URLRequest(url: viewModel.newsUrl))
+        guard let url = viewModel.newsUrl else {
+            return
+        }
+        webView.load(URLRequest(url: url))
     }
     
     private func staticConstraints() -> [NSLayoutConstraint] {

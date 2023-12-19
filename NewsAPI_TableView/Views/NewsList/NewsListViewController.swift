@@ -14,7 +14,6 @@ class NewsListViewController: UIViewController{
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
-
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         return tableView
     }()
@@ -39,7 +38,6 @@ class NewsListViewController: UIViewController{
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
-        
     }
     
     private func staticConstraints() -> [NSLayoutConstraint] {

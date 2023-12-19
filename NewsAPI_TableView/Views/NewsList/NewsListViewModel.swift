@@ -21,16 +21,24 @@ final class NewsListViewModel {
     private let newsService = NewsService()
     private var articles: [Article] = [] {
         didSet {
-            viewModels = articles.map{
-                NewsTableViewCellViewModel(
-                    title: $0.title ?? Constant.noTitle,
-                    description: $0.description ?? Constant.noDescription,
-                    imageUrl: URL(string: $0.urlToImage ?? ""),
-                    newsUrl: URL(string: $0.url ?? "")
-                )
+                viewModels = articles.compactMap { article in
+                    if let title = article.title,
+                       let description = article.description,
+                       let imageURL = URL(string: article.urlToImage ?? ""),
+                       let newsURL = URL(string: article.url ?? "") {
+                        return NewsTableViewCellViewModel(
+                            title: title,
+                            description: description,
+                            imageUrl: imageURL,
+                            newsUrl: newsURL
+                        )
+                    } else {
+                        return nil
+                    }
+                }
+
+                delegate?.viewModelDidUpdateData()
             }
-            delegate?.viewModelDidUpdateData()
-        }
     }
     
     var viewModels = [NewsTableViewCellViewModel]()
@@ -62,8 +70,8 @@ class NewsTableViewCellViewModel {
     init(
         title: String,
         description: String,
-        imageUrl: URL?,
-        newsUrl: URL?
+        imageUrl: URL,
+        newsUrl: URL
     ) {
         self.title = title
         self.description = description

@@ -11,8 +11,6 @@ class NewsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
-        //addGestureRecognizer(tapGesture)
         contentView.addSubview(newsTitleLabel)
         contentView.addSubview(newsDescriptionLabel)
         contentView.addSubview(newsImageView)
@@ -25,12 +23,6 @@ class NewsTableViewCell: UITableViewCell {
     
     static let identifier = Constant.identifier
     
-    
-    
-//    @objc func cellTapped() {
-//        print("Cell tapped!")
-//    }
-    
     private let newsTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -41,7 +33,7 @@ class NewsTableViewCell: UITableViewCell {
     
     private let newsDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 5
         label.font = .monospacedDigitSystemFont(ofSize: 17, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -72,14 +64,12 @@ class NewsTableViewCell: UITableViewCell {
                 newsDescriptionLabel.topAnchor.constraint(equalTo: newsTitleLabel.bottomAnchor),
                 newsDescriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constant.inset),
                 newsDescriptionLabel.rightAnchor.constraint(equalTo: newsTitleLabel.rightAnchor),
-                newsDescriptionLabel.bottomAnchor.constraint(equalTo: newsImageView.bottomAnchor),
                 
                 newsImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constant.inset),
                 newsImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.inset),
-                //newsImageView.heightAnchor.constraint(equalToConstant: Constant.imageHeight),
-                
+                newsImageView.heightAnchor.constraint(equalToConstant: Constant.imageHeight),
                 newsImageView.widthAnchor.constraint(equalToConstant: Constant.imageWidth),
-                newsImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.inset),
+                newsImageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -Constant.inset),
                 
             ])
             
