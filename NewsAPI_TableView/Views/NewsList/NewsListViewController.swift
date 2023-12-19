@@ -10,6 +10,8 @@ import SafariServices
 
 class NewsListViewController: UIViewController{
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +24,7 @@ class NewsListViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.setupSearchController()
         title = Constant.title
         
         setupUI()
@@ -40,6 +42,17 @@ class NewsListViewController: UIViewController{
         view.addSubview(tableView)
     }
     
+    private func setupSearchController(){
+        self.searchController.searchBar.delegate = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.searchBar.placeholder = Constant.searchPlaceholder
+        
+        self.navigationItem.searchController = searchController
+        self.definesPresentationContext = false
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
     private func staticConstraints() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
         
@@ -52,6 +65,14 @@ class NewsListViewController: UIViewController{
         return constraints
     }
 
+}
+
+extension NewsListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text {
+            viewModel.fetchNews(query: searchText)
+        }
+    }
 }
 
 extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
@@ -83,6 +104,7 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
 private extension NewsListViewController {
     enum Constant {
         static let title = "News app"
+        static let searchPlaceholder = "What are you interested in?"
     }
 }
 
