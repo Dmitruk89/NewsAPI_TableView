@@ -37,7 +37,6 @@ final class NewsListViewModel {
                         return nil
                     }
                 }
-
                 delegate?.viewModelDidUpdateData()
             }
     }
@@ -45,7 +44,7 @@ final class NewsListViewModel {
     var viewModels = [NewsTableViewCellViewModel]()
     
     init() {
-        fetchNews(query: Constant.defaultQuery)
+        fetchNews(query: Constant.initialQuery)
     }
     
     func fetchNews(query: String){
@@ -61,14 +60,9 @@ final class NewsListViewModel {
     }
 }
 
+    // MARK: Search functions
+
 extension NewsListViewModel {
-    public func inSearchMode(_ searchController: UISearchController) -> Bool {
-        let isActive = searchController.isActive
-        let searchText = searchController.searchBar.text ?? ""
-        
-        return isActive && !searchText.isEmpty
-    }
-    
     public func updateSearchController(searchBarText: String?) {
         guard let query = searchBarText else {
             return
@@ -80,8 +74,8 @@ extension NewsListViewModel {
 class NewsTableViewCellViewModel {
     let title: String
     let description: String
-    let newsUrl: URL?
-    let imageUrl: URL?
+    let newsUrl: URL
+    let imageUrl: URL
     var imageData: Data? = nil
     
     init(
@@ -102,6 +96,6 @@ private extension NewsListViewModel {
         static let noTitle = "no title"
         static let noDescription = "no description"
         static let defaultError = "something went wrong"
-        static let defaultQuery = "samsung"
+        static let initialQuery = "Oscar"
     }
 }

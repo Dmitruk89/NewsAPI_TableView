@@ -45,7 +45,7 @@ class NewsListViewController: UIViewController{
     private func setupSearchController(){
         self.searchController.searchBar.delegate = self
         self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.hidesNavigationBarDuringPresentation = true
         self.searchController.searchBar.placeholder = Constant.searchPlaceholder
         
         self.navigationItem.searchController = searchController
@@ -67,6 +67,8 @@ class NewsListViewController: UIViewController{
 
 }
 
+    // MARK: SearchBar features
+
 extension NewsListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text {
@@ -74,6 +76,8 @@ extension NewsListViewController: UISearchBarDelegate {
         }
     }
 }
+
+// MARK: Table view configuration
 
 extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,11 +97,7 @@ extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let article = viewModel.viewModels[indexPath.row]
-        
-        guard let url = article.newsUrl else {
-            return
-        }
-        viewModel.coordinator?.goToNewsDetailPage(newsUrl: url)
+        viewModel.coordinator?.goToNewsDetailPage(newsUrl: article.newsUrl)
     }
 }
 
