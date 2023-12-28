@@ -11,10 +11,7 @@ final class NewsDetailViewModel {
     var newsUrl: URL?
     var coordinator: MainCoordinator?
     
-    init?(newsUrl: URL?) {
-        guard let newsUrl = newsUrl else {
-            return nil
-        }
+    init(newsUrl: URL?) {
         self.newsUrl = newsUrl
     }
 }

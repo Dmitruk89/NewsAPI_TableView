@@ -20,23 +20,20 @@ class NewsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        NSLayoutConstraint.activate(staticConstraints())
+        setupConstraints()
         guard let url = viewModel.newsUrl else {
             return
         }
         webView.load(URLRequest(url: url))
     }
     
-    private func staticConstraints() -> [NSLayoutConstraint] {
-        var constraints = [NSLayoutConstraint]()
-            
-        constraints.append(contentsOf: [
+    private func setupConstraints(){
+        NSLayoutConstraint.activate([
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
-        return constraints
     }
     
     private func setupUI(){

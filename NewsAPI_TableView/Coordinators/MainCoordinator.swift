@@ -33,18 +33,18 @@ class MainCoordinator: Coordinator {
     let storyboard = UIStoryboard.init(name: "Main", bundle: .main)
     
     func goToNewsListPage(){
-        let vc = storyboard.instantiateViewController(withIdentifier: "NewsListViewController") as!NewsListViewController
-        let vm = NewsListViewModel.init()
-        vm.coordinator = self
-        vc.viewModel = vm
-        navigationController.pushViewController(vc, animated: true)
+        let newsListVC = storyboard.instantiateViewController(withIdentifier: "NewsListViewController") as!NewsListViewController
+        let newsListVM = NewsListViewModel.init()
+        newsListVM.coordinator = self
+        newsListVC.viewModel = newsListVM
+        navigationController.pushViewController(newsListVC, animated: true)
         }
     
     func goToNewsDetailPage(newsUrl: URL?){
-        let vc = storyboard.instantiateViewController(withIdentifier: "NewsDetailViewController") as!NewsDetailViewController
-        let vm = NewsDetailViewModel.init(newsUrl: newsUrl)
-        vm?.coordinator = self
-        vc.viewModel = vm
-        navigationController.pushViewController(vc, animated: true)
+        let newsDetailVC = storyboard.instantiateViewController(withIdentifier: "NewsDetailViewController") as!NewsDetailViewController
+        let newsDetailVM = NewsDetailViewModel.init(newsUrl: newsUrl)
+        newsDetailVM.coordinator = self
+        newsDetailVC.viewModel = newsDetailVM
+        navigationController.pushViewController(newsDetailVC, animated: true)
         }
 }

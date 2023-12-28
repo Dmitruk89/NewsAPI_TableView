@@ -10,18 +10,14 @@
 import Foundation
 import UIKit
 
-protocol NewsListViewModelDelegate: AnyObject {
-    func viewModelDidUpdateData()
-}
-
 final class NewsListViewModel {
     
-    weak var delegate: NewsListViewModelDelegate?
     var coordinator: MainCoordinator?
+    var onDataUpdate: ((_ articles: [NewsTableViewCellViewModel]) -> Void)?
     
     private let newsService = NewsService()
     private var articles: [Article] = [] {
-        didSet {
+            didSet {
                 viewModels = articles.compactMap { article in
                     if let title = article.title,
                        let description = article.description,
@@ -37,23 +33,24 @@ final class NewsListViewModel {
                         return nil
                     }
                 }
-                delegate?.viewModelDidUpdateData()
+                onDataUpdate?(viewModels)
             }
-    }
+        }
     
     var viewModels = [NewsTableViewCellViewModel]()
+    var currentQuery: String?
     
     init() {
         fetchNews(query: Constant.initialQuery)
-    }
-    
-    func fetchNews(query: String){
+        }
+    func fetchNews(query: String) {
         newsService.fetchNews(query: query) { [weak self] newsResponse in
             DispatchQueue.main.async {
                 if let newsResponse = newsResponse {
                     self?.articles = newsResponse.articles
+                    self?.currentQuery = query
                 } else {
-                    print(Constant.defaultError)
+                    _ = NSError(domain: "NewsServiceError", code: 0, userInfo: [NSLocalizedDescriptionKey: Constant.defaultError])
                 }
             }
         }
@@ -67,27 +64,8 @@ extension NewsListViewModel {
         guard let query = searchBarText else {
             return
         }
+        currentQuery = query
         fetchNews(query: query.lowercased())
-    }
-}
-
-class NewsTableViewCellViewModel {
-    let title: String
-    let description: String
-    let newsUrl: URL
-    let imageUrl: URL
-    var imageData: Data? = nil
-    
-    init(
-        title: String,
-        description: String,
-        imageUrl: URL,
-        newsUrl: URL
-    ) {
-        self.title = title
-        self.description = description
-        self.newsUrl = newsUrl
-        self.imageUrl = imageUrl
     }
 }
 

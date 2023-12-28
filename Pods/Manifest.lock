@@ -1,0 +1,16 @@
+PODS:
+  - PullToRefresher (3.3)
+
+DEPENDENCIES:
+  - PullToRefresher
+
+SPEC REPOS:
+  trunk:
+    - PullToRefresher
+
+SPEC CHECKSUMS:
+  PullToRefresher: 6fc2ab6494caf949bcf6f0223ffd23f9d21a06f6
+
+PODFILE CHECKSUM: 9b5cb9e1bc7ae1246c16f953eddc38d7aa7c457e
+
+COCOAPODS: 1.14.3

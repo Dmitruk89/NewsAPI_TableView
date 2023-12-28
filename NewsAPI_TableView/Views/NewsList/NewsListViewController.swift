@@ -6,34 +6,50 @@
 //
 
 import UIKit
-import SafariServices
 
 class NewsListViewController: UIViewController{
     
     private let searchController = UISearchController(searchResultsController: nil)
+    private let refreshControl = UIRefreshControl()
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        
         return tableView
     }()
     
-    var viewModel: NewsListViewModel!
+    
+    
+    var viewModel: NewsListViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSearchController()
         title = Constant.title
-        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
+
         setupUI()
         setupViewModel()
-        NSLayoutConstraint.activate(staticConstraints())
+        setupConstraints()
+    }
+    
+    @objc private func refreshWeatherData(_ sender: Any) {
+        guard let currentQuery = viewModel?.currentQuery else {
+            return
+        }
+        self.viewModel?.fetchNews(query: currentQuery)
+            self.refreshControl.endRefreshing()
+        
     }
     
     private func setupViewModel() {
-        viewModel.delegate = self
+        viewModel?.onDataUpdate = { [weak self] articles in
+            self?.tableView.reloadData()
+        }
     }
     
     private func setupUI(){
@@ -53,18 +69,14 @@ class NewsListViewController: UIViewController{
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    private func staticConstraints() -> [NSLayoutConstraint] {
-        var constraints = [NSLayoutConstraint]()
-        
-        constraints.append(contentsOf: [
+    private func setupConstraints(){
+        NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
-        return constraints
     }
-
 }
 
     // MARK: SearchBar features
@@ -72,7 +84,7 @@ class NewsListViewController: UIViewController{
 extension NewsListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text {
-            viewModel.fetchNews(query: searchText)
+            viewModel?.fetchNews(query: searchText)
         }
     }
 }
@@ -81,23 +93,25 @@ extension NewsListViewController: UISearchBarDelegate {
 
 extension NewsListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.viewModels.count
+        return viewModel?.viewModels.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as? NewsTableViewCell else {
-                return UITableViewCell()
+            return UITableViewCell()
         }
-        
-        cell.configure(with: viewModel.viewModels[indexPath.row])
+
+        if let viewModel = viewModel?.viewModels[indexPath.row] {
+            cell.configure(with: viewModel)
+        }
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let article = viewModel.viewModels[indexPath.row]
-        viewModel.coordinator?.goToNewsDetailPage(newsUrl: article.newsUrl)
+        let article = viewModel?.viewModels[indexPath.row]
+        viewModel?.coordinator?.goToNewsDetailPage(newsUrl: article?.newsUrl)
     }
 }
 
@@ -108,8 +122,3 @@ private extension NewsListViewController {
     }
 }
 
-extension NewsListViewController: NewsListViewModelDelegate {
-    func viewModelDidUpdateData() {
-        tableView.reloadData()
-    }
-}
