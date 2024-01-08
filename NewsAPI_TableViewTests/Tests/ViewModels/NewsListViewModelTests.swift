@@ -1,5 +1,5 @@
 //
-//  NewsAPI_TableViewTests.swift
+//  NewsListViewModelTests.swift
 //  NewsAPI_TableViewTests
 //
 //  Created by Руковичников Дмитрий on 4.01.24.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class NewsAPI_TableViewTests: XCTestCase {
+final class NewsListViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -27,7 +27,7 @@ final class NewsAPI_TableViewTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        measure {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }

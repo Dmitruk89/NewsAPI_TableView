@@ -1,0 +1,33 @@
+
+{
+  "status": "ok",
+  "totalResults": 2,
+  "articles": [
+    {
+      "source": {
+        "id": "1",
+        "name": "News Source 1"
+      },
+      "author": "Author 1",
+      "title": "Article Title 1",
+      "description": "Description 1",
+      "url": "https://example.com/article1",
+      "urlToImage": "https://example.com/image1.jpg",
+      "publishedAt": "2023-01-01T12:34:56Z",
+      "content": "Content 1"
+    },
+    {
+      "source": {
+        "id": "2",
+        "name": "News Source 2"
+      },
+      "author": "Author 2",
+      "title": "Article Title 2",
+      "description": "Description 2",
+      "url": "https://example.com/article2",
+      "urlToImage": "https://example.com/image2.jpg",
+      "publishedAt": "2023-01-02T08:45:12Z",
+      "content": "Content 2"
+    }
+  ]
+}
